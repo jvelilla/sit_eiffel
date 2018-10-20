@@ -1,0 +1,3 @@
+eiffel.sh into /etc/profile.d/
+extract eiffelstudio into /opt
+

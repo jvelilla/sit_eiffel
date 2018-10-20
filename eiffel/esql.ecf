@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-18-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-18-0 http://www.eiffel.com/developers/xml/configuration-1-18-0.xsd" name="esql_modif_pg" uuid="EFFCDC06-058C-4D61-A59F-195EF996CCB7">
+	<target name="common" abstract="true">
+		<root cluster="root_cluster" class="ESQL" feature="make"/>
+		<option debug="true" warning="true" full_class_checking="true" is_attached_by_default="true" void_safety="transitional" syntax="provisional">
+          <assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
+		</option>
+		<setting name="console_application" value="true"/>
+		<capability>
+			<catcall_detection support="none"/>
+			<concurrency support="none"/>
+			<void_safety support="none"/>
+		</capability>
+		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<library name="store" location="$ISE_LIBRARY\library\store\store.ecf"/>
+		<library name="logging" location="$ISE_LIBRARY\library\runtime\logging\logging.ecf"/>
+		<library name="odbc" location="$ISE_LIBRARY\library\store\dbms\rdbms\odbc\odbc.ecf"/>
+		<library name="wsf" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\wsf.ecf"/>
+		<cluster name="handle" location="$ISE_LIBRARY\examples\store\Utilities\odbc\"/>
+	</target>
+    
+	<target name="esql_odbc" extends="common">
+		<capability>
+			<catcall_detection support="none"/>
+			<concurrency support="none"/>
+			<void_safety support="none"/>
+		</capability>
+		<cluster name="root_cluster" location=".\">
+			<cluster name="entities" location="\home\pg\data\sit_dev\eiffel\entities\"/>
+			<cluster name="services" location="\home\pg\data\sit_dev\eiffel\services\"/>
+			<cluster name="dao" location="\home\pg\data\sit_dev\eiffel\dao\"/>
+			<cluster name="misc" location="\home\pg\data\sit_dev\eiffel\misc\"/>
+			<cluster name="default" location="\home\pg\data\sit_dev\eiffel\default\"/>
+		</cluster>
+		<cluster name="utilities" location="$ISE_LIBRARY\examples\store\Utilities\"/>
+	</target>
+    
+	
+	<target name="api_rest_standalone" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="default_standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\standalone-safe.ecf"/>
+		<library name="standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\standalone-safe.ecf"/>
+		<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/any$</exclude>
+				</file_rule>	
+		</cluster>
+	</target>
+
+	<target name="api_rest_libfcgi" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="dft_libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\libfcgi-safe.ecf"/>
+		<library name="libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\libfcgi-safe.ecf"/>
+			<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/any$</exclude>
+				</file_rule>	
+			</cluster>
+	</target>
+	
+	<target name="app_rest_cgi" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\cgi-safe.ecf"/>
+		<library name="dft_cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\cgi-safe.ecf"/>
+		<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/any$</exclude>
+				</file_rule>	
+		</cluster>
+	</target>
+	
+	<target name="app_rest_any" extends="common">
+		<root class="APPLICATION" feature="make_and_launch"/>
+		<library name="cgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\cgi-safe.ecf"/>
+		<library name="libfcgi" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\libfcgi-safe.ecf"/>
+		<library name="dft_standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\default\standalone-safe.ecf"/>
+		<library name="standalone" location="$ISE_LIBRARY\contrib\library\web\framework\ewf\wsf\connector\standalone-safe.ecf"/>
+		<cluster name="src" location="src\" recursive="true">
+				<file_rule>
+					<exclude>/root/default$</exclude>
+				</file_rule>	
+		</cluster>
+	</target>    
+    
+</system>
